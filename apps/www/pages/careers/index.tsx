@@ -8,7 +8,6 @@ import { Badge, Button, IconCheck, Separator, buttonVariants, cn } from 'ui'
 import Globe from '~/components/Globe'
 import DefaultLayout from '~/components/Layouts/Default'
 import SectionContainer from '~/components/Layouts/SectionContainer'
-import { useTheme } from 'next-themes'
 import career from '~/data/career.json'
 import Styles from './career.module.css'
 import { GlobeAltIcon } from '@heroicons/react/outline'
@@ -44,9 +43,9 @@ export async function getStaticProps() {
       html_url: 'https://twitter.com/XquisiteDreamer',
     },
     {
-      login: 'marijanasimag',
+      login: 'marijanapav',
       avatar_url: 'https://avatars.githubusercontent.com/u/46031252?v=4',
-      html_url: 'https://github.com/marijanasimag',
+      html_url: 'https://github.com/marijanapav',
     },
     {
       login: 'lyqht',
@@ -77,7 +76,6 @@ export async function getStaticProps() {
 }
 
 const CareerPage: NextPage = ({ jobs, contributors }: any) => {
-  const { resolvedTheme } = useTheme()
   const { basePath } = useRouter()
 
   const meta_title = 'Careers | Supabase'
@@ -111,9 +109,11 @@ const CareerPage: NextPage = ({ jobs, contributors }: any) => {
             <p className="text-sm md:text-base text-foreground-lighter max-w-sm sm:max-w-md md:max-w-lg mx-auto">
               Explore remote possibilities and join our team to help us achieve it.
             </p>
-            <a href="#positions">
-              <Button className="text-white xl:text-sm mt-4">Open positions</Button>
-            </a>
+            <div className="mt-4">
+              <a href="#positions">
+                <Button type="primary">Open positions</Button>
+              </a>
+            </div>
           </div>
 
           <SectionContainer>
@@ -139,31 +139,37 @@ const CareerPage: NextPage = ({ jobs, contributors }: any) => {
 
           <div className="py-[1.25px] bg-gradient-to-r from-background via-border to-background">
             <div className="bg-alternative overflow-clip">
-              <SectionContainer className="!py-0 !pb-16 lg:!pt-16">
-                <div className="lg:flex lg:h-[500px]">
-                  <div className="relative aspect-square -top-[110px] -left-[200px] w-[575px] sm:-top-[150px] sm:-left-[300px] sm:w-[850px] lg:-top-[225px] lg:-left-[330px] lg:w-[800px] lg:h-[800px] xl:-left-[200px] xl:-top-[210px] xl:w-[1000px]">
-                    <Globe />
-                  </div>
-                  <div className="relative -top-[75px] lg:top-0 lg:-left-[325px] xl:-top-[45px] xl:-left-[150px] 2xl:-left-[50px] lg:min-w-[400px] lg:h-fit xl:mt-10">
-                    <h2 className="text-2xl sm:text-3xl xl:text-4xl max-w-[300px] lg:max-w-xs tracking-[-1.5px]">
-                      We work together, wherever we are
+              <SectionContainer className="md:!pt-16 md:grid md:max-h-[500px] grid-cols-1 md:grid-cols-5 md:gap-8">
+                <div
+                  className="
+                    relative md:col-span-2 aspect-square
+                    w-[calc(100%+100px)] md:w-[calc(100%+450px)] xl:w-[calc(100%+200px)]
+                    -mb-[160px] md:mb-0
+                    -top-[160px] md:-top-[200px] xl:-top-[210px]
+                    -left-[100px] md:-left-[450px] xl:-left-[200px]
+                  "
+                >
+                  <Globe />
+                </div>
+                <div className="relative md:col-span-3">
+                  <h2 className="text-2xl sm:text-3xl xl:text-4xl max-w-[300px] md:max-w-xs tracking-[-1.5px]">
+                    We work together, wherever we are
+                  </h2>
+                  <p className="text-foreground-light mt-4 text-xs sm:text-sm md:text-base md:w-full">
+                    Working in a globally distributed team is rewarding but has its challenges. We
+                    are across many different timezones, so we use tools like Notion, Slack, and
+                    Discord to stay connected to our team, and our community.
+                  </p>
+                  <div className="max-w-[300px] sm:max-w-md md:max-w-md mt-20">
+                    <div className="border-t-2 border-brand w-4/12"></div>
+                    <h2 className="text-2xl sm:text-3xl md:text-4xl pt-2 tracking-[-1.5px]">
+                      We deeply believe in the efficacy of collaborative open source
                     </h2>
-                    <p className="text-foreground-light mt-4 text-xs sm:text-sm lg:text-base md:w-5/6 lg:w-full">
-                      Working in a globally distributed team is rewarding but has its challenges. We
-                      are across many different timezones, so we use tools like Notion, Slack, and
-                      Discord to stay connected to our team, and our community.
-                    </p>
-                    <div className="max-w-[300px] sm:max-w-md lg:max-w-md mt-20">
-                      <div className="border-t-2 border-brand w-4/12"></div>
-                      <h2 className="text-2xl sm:text-3xl lg:text-4xl pt-2 tracking-[-1.5px]">
-                        We deeply believe in the efficacy of collaborative open source
-                      </h2>
-                    </div>
                   </div>
                 </div>
               </SectionContainer>
 
-              <SectionContainer className="-mt-16 md:mt-0">
+              <SectionContainer className="-mt-16 md:mt-16">
                 <div className="md:flex md:gap-6">
                   <div className="md:w-1/2">
                     <div>
@@ -183,11 +189,12 @@ const CareerPage: NextPage = ({ jobs, contributors }: any) => {
                         <Image
                           src="/images/career/1.jpg"
                           alt="team photo"
-                          layout="fill"
-                          objectFit="cover"
+                          fill
+                          sizes="(min-width: 767px) 45vw, 100vw"
                           placeholder="blur"
                           blurDataURL="/images/blur.png"
-                          className="rounded-md"
+                          className="rounded-md object-cover"
+                          draggable={false}
                         />
                       </div>
                     </div>
@@ -197,11 +204,12 @@ const CareerPage: NextPage = ({ jobs, contributors }: any) => {
                           <Image
                             src="/images/career/2.jpg"
                             alt="team photo"
-                            layout="fill"
-                            objectFit="cover"
+                            fill
+                            sizes="(min-width: 767px) 45vw, 100vw"
                             placeholder="blur"
                             blurDataURL="/images/blur.png"
-                            className="rounded-md"
+                            className="rounded-md object-cover"
+                            draggable={false}
                           />
                         </div>
                       </div>
@@ -213,11 +221,12 @@ const CareerPage: NextPage = ({ jobs, contributors }: any) => {
                         <Image
                           src="/images/career/3.jpg"
                           alt="team photo"
-                          layout="fill"
-                          objectFit="cover"
+                          fill
+                          sizes="(min-width: 767px) 45vw, 100vw"
                           placeholder="blur"
                           blurDataURL="/images/blur.png"
-                          className="rounded-md"
+                          className="rounded-md object-cover"
+                          draggable={false}
                         />
                       </div>
                     </div>
@@ -227,11 +236,12 @@ const CareerPage: NextPage = ({ jobs, contributors }: any) => {
                           <Image
                             src="/images/career/4.jpg"
                             alt="team photo"
-                            layout="fill"
-                            objectFit="cover"
+                            fill
+                            sizes="(min-width: 767px) 45vw, 100vw"
                             placeholder="blur"
                             blurDataURL="/images/blur.png"
-                            className="rounded-md"
+                            className="rounded-md object-cover"
+                            draggable={false}
                           />
                         </div>
                       </div>
@@ -240,11 +250,12 @@ const CareerPage: NextPage = ({ jobs, contributors }: any) => {
                           <Image
                             src="/images/career/5.jpg"
                             alt="team photo"
-                            layout="fill"
-                            objectFit="cover"
+                            fill
+                            sizes="(min-width: 767px) 45vw, 100vw"
                             placeholder="blur"
                             blurDataURL="/images/blur.png"
-                            className="rounded-md"
+                            className="rounded-md object-cover"
+                            draggable={false}
                           />
                         </div>
                       </div>
@@ -254,11 +265,12 @@ const CareerPage: NextPage = ({ jobs, contributors }: any) => {
                         <Image
                           src="/images/career/6.jpg"
                           alt="team photo"
-                          layout="fill"
-                          objectFit="cover"
+                          fill
+                          sizes="(min-width: 767px) 45vw, 100vw"
                           placeholder="blur"
                           blurDataURL="/images/blur.png"
-                          className="rounded-md"
+                          className="rounded-md object-cover"
+                          draggable={false}
                         />
                       </div>
                     </div>
@@ -274,24 +286,11 @@ const CareerPage: NextPage = ({ jobs, contributors }: any) => {
                   As a completely remote and asynchronous team, we focus on these five traits to
                   keep our team effective:
                 </p>
-                <div className="grid pt-10 gap-8 grid-cols-2 md:grid-cols-3 lg:gap-12 lg:grid-cols-5">
+                <div className="grid pt-10 gap-8 grid-cols-2 md:grid-cols-3 lg:gap-16 lg:grid-cols-5">
                   {career.humanPowered.map(
                     (human: { icon: string; title: string; text: string }, i: number) => {
                       return (
                         <div key={i} className="flex flex-col gap-3">
-                          <div className="w-12 h-12 sm:w-10 sm:h-10 lg:w-12 lg:h-12 rounded-lg flex items-center">
-                            <div className="relative w-full h-full mx-auto">
-                              <Image
-                                src={`/images/career/icons/${human.icon}${
-                                  resolvedTheme?.includes('dark') ? '-dark' : '-light'
-                                }.svg`}
-                                className="w-12 h-12 sm:w-10 sm:h-10 lg:w-12 lg:h-12"
-                                alt={`${human.icon} icon`}
-                                layout="fill"
-                                objectFit="fill"
-                              />
-                            </div>
-                          </div>
                           <div>
                             <h2 className="text-base">{human.title}</h2>
                             <p className="text-foreground-light text-xs lg:text-sm">{human.text}</p>
@@ -304,18 +303,6 @@ const CareerPage: NextPage = ({ jobs, contributors }: any) => {
               </SectionContainer>
 
               <SectionContainer className="!pb-0">
-                <div className="w-14 h-14 rounded-lg flex items-center mx-auto mb-6">
-                  <div className="relative w-full h-full mx-auto">
-                    <Image
-                      src={`/images/career/icons/open_source${
-                        resolvedTheme?.includes('dark') ? '-dark' : '-light'
-                      }.svg`}
-                      alt="open source icon"
-                      layout="fill"
-                      objectFit="cover"
-                    />
-                  </div>
-                </div>
                 <div className="text-center">
                   <h2 className="text-2xl sm:text-3xl xl:text-4xl max-w-[300px] xl:max-w-none mx-auto tracking-[-1.5px]">
                     1,000 + Contributors building Supabase
@@ -343,9 +330,12 @@ const CareerPage: NextPage = ({ jobs, contributors }: any) => {
                             <Image
                               src={contributor.avatar_url}
                               alt={`${contributor.login} github avatar`}
-                              className="rounded-full"
-                              layout="fill"
-                              objectFit="cover"
+                              fill
+                              sizes="(min-width: 767px) 45vw, 100vw"
+                              placeholder="blur"
+                              blurDataURL="/images/blur.png"
+                              className="rounded-full object-cover"
+                              draggable={false}
                             />
                           </div>
                         </Link>
@@ -384,28 +374,13 @@ const CareerPage: NextPage = ({ jobs, contributors }: any) => {
                   Great people deserve great benefits
                 </h2>
               </div>
-              <div className="mt-12 xl:mt-0 space-y-6 lg:space-y-0 sm:w-fit sm:mx-auto lg:grid lg:grid-cols-2 lg:gap-6">
+              <div className="mt-12 xl:mt-0 space-y-6 lg:space-y-0 sm:w-fit sm:mx-auto lg:grid lg:grid-cols-2 lg:gap-16">
                 {career.benefits.map(
                   (benefits: { icon: string; title: string; text: string }, i: number) => {
                     return (
-                      <div
-                        className="h-full bg-surface-75 drop-shadow-sm border border-muted p-6 rounded-lg flex items-start space-x-6 w-full"
-                        key={i}
-                      >
-                        <div className="w-12 h-12 sm:w-10 sm:h-10 lg:w-12 lg:h-12 aspect-square rounded-lg flex items-center">
-                          <div className="relative w-full h-full mx-auto">
-                            <Image
-                              src={`/images/career/icons/${benefits.icon}${
-                                resolvedTheme?.includes('dark') ? '-dark' : '-light'
-                              }.svg`}
-                              alt={`${benefits.icon} icon`}
-                              layout="fill"
-                              objectFit="cover"
-                            />
-                          </div>
-                        </div>
+                      <div className="h-full flex items-start space-x-6 w-full" key={i}>
                         <div className="h-fit text-sm lg:text-base">
-                          <h2 className="text-base">{benefits.title}</h2>
+                          <h2 className="text-sm">{benefits.title}</h2>
                           <ReactMarkdown className="prose pt-1 text-sm">
                             {benefits.text}
                           </ReactMarkdown>
@@ -419,18 +394,6 @@ const CareerPage: NextPage = ({ jobs, contributors }: any) => {
           </SectionContainer>
 
           <SectionContainer>
-            <div className="w-14 h-14 rounded-lg flex items-center mx-auto mb-6">
-              <div className="relative w-full h-full mx-auto">
-                <Image
-                  src={`/images/career/icons/jobs${
-                    resolvedTheme?.includes('dark') ? '-dark' : '-light'
-                  }.svg`}
-                  alt="jobs icon"
-                  layout="fill"
-                  objectFit="cover"
-                />
-              </div>
-            </div>
             <div className="text-center sm:max-w-md md:w-3/4 lg:max-w-lg xl:max-w-2xl mx-auto">
               <h2 className="text-2xl sm:text-3xl xl:text-4xl tracking-[-1.5px]">How we hire</h2>
               <p className="text-xs sm:text-sm lg:text-base text-foreground-light pt-3">
@@ -499,10 +462,10 @@ const CareerPage: NextPage = ({ jobs, contributors }: any) => {
                         key={i}
                         className="
                         first-of-type:rounded-t-md last-of-type:rounded-b-md
-                        cursor-pointer md:cursor-default bg-surface-75 border border-muted drop-shadow-sm p-4 px-7 
-                        flex flex-col md:flex-row 
+                        cursor-pointer md:cursor-default bg-surface-75 border border-muted drop-shadow-sm p-4 px-7
+                        flex flex-col md:flex-row
                         md:items-center
-                        transition hover:bg-surface-100 
+                        transition hover:bg-surface-100
                         hover:cursor-pointer"
                       >
                         <h2 className="text-base min-w-[240px] lg:min-w-[316px] sm:truncate mr-6">

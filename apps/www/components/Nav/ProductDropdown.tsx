@@ -32,7 +32,7 @@ const ProductDropdown = () => {
           </NavigationMenuLink>
         ))}
       </ul>
-      <div className="bg-overlay border-t xl:border-t-0 xl:border-l py-8 px-10 gap-8 grid grid-cols-5 xl:flex xl:flex-col w-full xl:w-[500px]">
+      <div className="bg-surface-75 border-t xl:border-t-0 xl:border-l py-8 px-10 gap-8 grid grid-cols-5 xl:flex xl:flex-col w-full xl:w-[500px]">
         <div className="col-span-3 xl:w-auto">
           <Link
             href="/customers"
@@ -66,22 +66,24 @@ const ProductDropdown = () => {
             ))}
           </ul>
         </div>
-        <div className="col-span-2">
-          <p className="text-foreground-lighter text-xs uppercase tracking-widest font-mono mb-6">
-            {ComparisonsData.label}
-          </p>
-          <ul className="flex flex-col gap-2">
-            {ComparisonsData.comparisons.map((link) => (
-              <li key={link.text}>
-                <TextLink
-                  chevronAnimation="fadeIn"
-                  url={link.url}
-                  label={link.text}
-                  className="mt-0 hover:text-foreground focus-visible:text-foreground focus-visible:ring-offset-4 focus-visible:ring-offset-background-overlay"
-                />
-              </li>
-            ))}
-          </ul>
+        <div className="col-span-2 grid grid-cols-1 xl:grid-cols-2 gap-6 xl:gap-2">
+          <div>
+            <p className="text-foreground-lighter text-xs uppercase tracking-widest font-mono mb-6">
+              {ComparisonsData.label}
+            </p>
+            <ul className="flex flex-col gap-2">
+              {ComparisonsData.comparisons.map((link) => (
+                <li key={link.text}>
+                  <TextLink
+                    chevronAnimation="fadeIn"
+                    url={link.url}
+                    label={link.text}
+                    className="mt-0 hover:text-foreground focus-visible:text-foreground focus-visible:ring-offset-4 focus-visible:ring-offset-background-overlay"
+                  />
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
       </div>
     </div>
